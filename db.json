@@ -53,47 +53,22 @@
   ],
   "tareasDisponibles": [
     {
-      "id": "4",
-      "titulo": "Estudiar modularización",
-      "descripcion": "Separar funciones en diferentes archivos JS"
-    },
-    {
-      "id": "5",
-      "titulo": "Practicar GitHub",
-      "descripcion": "Realizar commits y push correctamente"
-    },
-    {
-      "id": "6",
-      "titulo": "Optimizar código",
-      "descripcion": "Mejorar legibilidad y reutilización"
-    },
-    {
       "titulo": "realizar correctamente los ejercicios",
       "descripcion": "estudiar para completar todos de forma correcta",
       "id": "pO46XBV"
+    },
+    {
+      "titulo": "hacer aseo",
+      "descripcion": "hacer aseo",
+      "id": "Qtkot_n"
+    },
+    {
+      "titulo": "hahcer lqa comida",
+      "descripcion": "bien hecha",
+      "id": "Jr-CVqf"
     }
   ],
   "tareasAsignadas": [
-    {
-      "usuarioId": "1000000001",
-      "usuarioNombre": "Ana Torres",
-      "tareaId": "3",
-      "titulo": "Crear base de datos",
-      "descripcion": "Configurar JSON Server correctamente",
-      "estado": "En progreso",
-      "fechaAsignacion": "2026-05-20T03:12:20.878Z",
-      "id": "24Q2qka"
-    },
-    {
-      "usuarioId": "1000000001",
-      "usuarioNombre": "Ana Torres",
-      "tareaId": "_j01tJ2",
-      "titulo": "hacer aseo",
-      "descripcion": "pronto",
-      "estado": "En progreso",
-      "fechaAsignacion": "2026-05-29T06:12:26.502Z",
-      "id": "gmg-2vT"
-    },
     {
       "usuarioId": "1000000001",
       "usuarioNombre": "Ana Torres",
@@ -113,6 +88,26 @@
       "estado": "Pendiente",
       "fechaAsignacion": "2026-05-29T20:43:21.141Z",
       "id": "Ii6-Kzp"
+    },
+    {
+      "usuarioId": "1000000001",
+      "usuarioNombre": "Ana Torres",
+      "tareaId": "6",
+      "titulo": "usar todo",
+      "descripcion": "Mejorar legibilidad y reutilización",
+      "estado": "En progreso",
+      "fechaAsignacion": "2026-06-02T03:23:24.282Z",
+      "id": "qBwBXDy"
+    },
+    {
+      "usuarioId": "1000000001",
+      "usuarioNombre": "Ana Torres",
+      "tareaId": "Jr-CVqf",
+      "titulo": "hahcer lqa comida",
+      "descripcion": "bien hecha",
+      "estado": "Pendiente",
+      "fechaAsignacion": "2026-06-02T04:55:41.631Z",
+      "id": "QV0NsdF"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

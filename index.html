@@ -72,14 +72,18 @@
             
                 <!-- SELECCIONAR TAREA -->
                 <div class="grupo-formulario">
-                    <label for="selectorTareas">Selecciona una tarea</label>
-                    <select id="selectorTareas" required>
-                        <option value="">-- Selecciona una tarea --</option>
-                    </select>
-                     <!-- contenedor de botones -->
-                    <div id="contenedorTareas"></div>
-                    <span id="errorSelectorTareas" class="mensaje-error"></span>
-                </div>
+                    <label>Título de la Tarea</label>
+                    <input type="hidden" id="selectorTareas">
+                    <div class="dropdown-personalizado" id="dropdownTareas">
+                        <div class="dropdown-cabecera" id="dropdownCabecera">
+                            <span id="dropdownTexto">selecciona una tarea</span>
+                            <span class="dropdown-flecha">&#8964;</span>
+                        </div>
+                        <div class="dropdown-lista" id="dropdownLista"></div>
+                    </div>
+                    <span id="errorSelectorTareas" class="mensaje-error"></span> 
+                </div>   
+                        
 
                 <!-- ESTADO -->
                 <div class="grupo-formulario">

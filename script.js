@@ -5,7 +5,8 @@ import {
     buscarUsuario,
     mostrarDatosUsuario,
     registrarTarea,
-    limpiarTodasLasTareas
+    limpiarTodasLasTareas,
+    cargarTareasDisponibles
 } from './js/task_manager.js';
 
 import {
@@ -42,6 +43,7 @@ document.addEventListener(
             Configurar eventos
         */
         configurarEventos();
+        configurarDropdown();
 
     }
 
@@ -340,39 +342,46 @@ async function manejarRegistroTarea(evento) {
     return false;
 
 }
-//linea para boton agregar tarea
+
+// DROPDOWN PERSONALIZADO
+function configurarDropdown() {
+    const cabecera = document.getElementById('dropdownCabecera');
+    const lista    = document.getElementById('dropdownLista');
+
+    cabecera.addEventListener('click', function (e) {
+        e.stopPropagation();
+        lista.classList.toggle('abierto');
+    });
+
+    document.addEventListener('click', function () {
+        lista.classList.remove('abierto');
+    });
+
+    lista.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+}
+// BOTON AGREGAR TAREA
 const boton = document.getElementById('botonAgregarTarea');
 boton.addEventListener('click', async () => {
     const titulo = prompt('Ingrese el título de la nueva tarea: ');
     if (!titulo) return;
     const descripcion = prompt('Ingrese la descripción de la nueva tarea: ');
     if (!descripcion) return;
-        try {
-            const nuevaTarea = {
-                titulo: titulo,
-                descripcion: descripcion
-            };
-            const respuesta = await fetch(`${API_URL}/tareasDisponibles`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(nuevaTarea)
-            });
 
-            const tareaGuardada = await respuesta.json();
-            const selectorTareas = document.getElementById('selectorTareas');
-            const opcion = document.createElement('option');
-            opcion.value = tareaGuardada.id;
-            opcion.textContent = tareaGuardada.titulo;
-            selectorTareas.appendChild(opcion);
-            alert('Tarea agregada correctamente');
-           } catch (error) {
-               console.error(error);
-               alert('Error al agregar tarea');
-        }
-    
+    try {
+        const API_URL = `${window.location.protocol}//${window.location.hostname}:3000`;
+        const respuesta = await fetch(`${API_URL}/tareasDisponibles`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ titulo, descripcion })
+        });
+        if (!respuesta.ok) throw new Error('Error al guardar');
+
+        await cargarTareasDisponibles(); // recarga el dropdown con la nueva tarea
+        alert('Tarea agregada correctamente');
+    } catch (error) {
+        console.error(error);
+        alert('Error al agregar tarea');
+    }
 });
-import {mostrarTareasConBotones}from './js/task_manager.js';
-
-mostrarTareasConBotones();

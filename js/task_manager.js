@@ -141,77 +141,74 @@ export function mostrarDatosUsuario(usuario) {
 // ============================================
 // CARGAR TAREAS DISPONIBLES
 // ============================================
-
-/**
- * Cargar tareas en selector
- */
 export async function cargarTareasDisponibles() {
-
     try {
+        const respuesta = await fetch(`${API_URL}/tareasDisponibles`);
+        const tareas    = await respuesta.json();
 
-        /*
-            Petición
-        */
-        const respuesta =
-            await fetch(
-                `${API_URL}/tareasDisponibles`
-            );
+        const lista = document.getElementById('dropdownLista');
+        lista.innerHTML = '';
 
-        /*
-            Convertir respuesta
-        */
-        const tareas =
-            await respuesta.json();
-
-        /*
-            Obtener selector
-        */
-        const selector =
-            document.getElementById(
-                'selectorTareas'
-            );
-
-        /*
-            Limpiar selector
-        */
-        selector.innerHTML = `
-            <option value="">
-                -- Selecciona una tarea --
-            </option>
-        `;
-
-        /*
-            Agregar tareas
-        */
         tareas.forEach(tarea => {
+            const fila = document.createElement('div');
+            fila.classList.add('dropdown-item');
 
-            const opcion =
-                document.createElement(
-                    'option'
-                );
+            fila.innerHTML = `
+                <span class="dropdown-item-titulo">${tarea.titulo}</span>
+                <span class="dropdown-item-acciones">
+                    <span class="accion-editar"   data-id="${tarea.id}">Editar ✏️</span>
+                    <span class="accion-eliminar" data-id="${tarea.id}">Eliminar 🗑️</span>
+                </span>
+            `;
 
-            opcion.value =
-                tarea.id;
+            // Seleccionar tarea al hacer clic en el título
+            fila.querySelector('.dropdown-item-titulo').addEventListener('click', function () {
+                document.getElementById('selectorTareas').value = tarea.id;
+                document.getElementById('dropdownTexto').textContent = tarea.titulo;
+                document.getElementById('dropdownLista').classList.remove('abierto');
+            });
 
-            opcion.textContent =
-                tarea.titulo;
+            // Editar
+            fila.querySelector('.accion-editar').addEventListener('click', async function (e) {
+                e.stopPropagation();
+                const id = this.dataset.id;
+                const nuevoTitulo = prompt('Ingrese el nuevo nombre de la tarea:');
+                if (!nuevoTitulo) return;
+                await fetch(`${API_URL}/tareasDisponibles/${id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ titulo: nuevoTitulo })
+                });
+                if (document.getElementById('selectorTareas').value === id) {
+                    document.getElementById('dropdownTexto').textContent = nuevoTitulo;
+                }
+                await cargarTareasDisponibles();
+            });
 
-            selector.appendChild(
-                opcion
-            );
+            // Eliminar
+            fila.querySelector('.accion-eliminar').addEventListener('click', async function (e) {
+                e.stopPropagation();
+                const id = this.dataset.id;
+                const confirmar = confirm('¿Deseas eliminar esta tarea disponible?');
+                if (!confirmar) return;
+                await fetch(`${API_URL}/tareasDisponibles/${id}`, {
+                    method: 'DELETE'
+                });
+                if (document.getElementById('selectorTareas').value === id) {
+                    document.getElementById('selectorTareas').value = '';
+                    document.getElementById('dropdownTexto').textContent = '-- Selecciona una tarea --';
+                }
+                await cargarTareasDisponibles();
+            });
 
+            lista.appendChild(fila);
         });
 
     } catch (error) {
-
-        console.error(
-            'Error al cargar tareas:',
-            error
-        );
-
+        console.error('Error al cargar tareas:', error);
     }
-
 }
+
 
 
 // ============================================
@@ -660,56 +657,3 @@ export async function limpiarTodasLasTareas() {
     }
 
 }
-//funcion para agregar botones de eliminar-editar
-export async function mostrarTareasConBotones(usuario) {
-    
-    const respuesta = await fetch(`${API_URL}/tareasDisponibles`)
-    const tareas = await respuesta.json();
-    const contenedorTareas = document.getElementById('contenedorTareas');
-    contenedorTareas.innerHTML = '';
-    tareas.forEach(tarea => {
-        const fila = document.createElement('div');
-        fila.classList.add('fila-tarea');
-        fila.innerHTML = `
-            <span>${tarea.titulo}</span>
-            <div>
-                <button class="btn-editar" data-id="${tarea.id}">Editar ✏️</button>
-                <button class="btn-eliminar" data-id="${tarea.id}">Eliminar 🗑️</button>
-            </div>
-        `;
-        contenedorTareas.appendChild(fila);
-    });
-        configurarBotones();
-}
-function configurarBotones() {
-    document.querySelectorAll('.btn-editar').forEach(boton => {
-        boton.addEventListener('click', async function () {
-            const id = this.dataset.id;
-            const nuevoTitulo = prompt('ingrese el nombre de la tarea que desea modificar: ');
-            if (!nuevoTitulo) return;
-            await fetch(`${API_URL}/tareasDisponibles/${id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ titulo: nuevoTitulo })
-            });
-            mostrarTareasConBotones();
-            
-        });
-    });
-
-//eliminar
-document.querySelectorAll('.btn-eliminar').forEach(boton => {
-    boton.addEventListener('click', async function () {
-        const id = this.dataset.id;
-        const confirmar = confirm('¿Deseas eliminar esta tarea?');
-        if (!confirmar) return;
-        await fetch(`${API_URL}/tareasDisponibles/${id}`, {
-            method: 'DELETE'
-        });
-        mostrarTareasConBotones();
-    });
-  });
-}
-mostrarTareasConBotones();
