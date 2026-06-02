@@ -157,12 +157,32 @@
     {
       "usuarioId": "1000000001",
       "usuarioNombre": "Ana Torres",
-      "tareaId": "3",
-      "titulo": "Crear base de datos",
-      "descripcion": "Configurar JSON Server correctamente",
+      "tareaId": "5",
+      "titulo": "Practicar GitHub",
+      "descripcion": "Realizar commits y push correctamente",
       "estado": "En progreso",
-      "fechaAsignacion": "2026-05-20T03:12:20.878Z",
-      "id": "24Q2qka"
+      "fechaAsignacion": "2026-06-02T00:02:54.012Z",
+      "id": "4wb1MBQ"
+    },
+    {
+      "usuarioId": "1000000001",
+      "usuarioNombre": "Ana Torres",
+      "tareaId": "4",
+      "titulo": "Estudiar modularización",
+      "descripcion": "Separar funciones en diferentes archivos JS",
+      "estado": "Completada",
+      "fechaAsignacion": "2026-06-02T00:20:01.083Z",
+      "id": "AwgIbAt"
+    },
+    {
+      "usuarioId": "1000000001",
+      "usuarioNombre": "Ana Torres",
+      "tareaId": "2",
+      "titulo": "Diseñar interfaz",
+      "descripcion": "Crear estilos CSS responsivos",
+      "estado": "En progreso",
+      "fechaAsignacion": "2026-06-02T00:47:52.840Z",
+      "id": "IhI2qA7"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
