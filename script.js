@@ -382,6 +382,6 @@ boton.addEventListener('click', async () => {
         alert('Tarea agregada correctamente');
     } catch (error) {
         console.error(error);
-        alert('Error al agregar tarea');
+        alert('Error ha habido al agregar la tarea');
     }
 });
