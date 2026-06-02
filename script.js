@@ -14,7 +14,7 @@ import {
     limpiarError
 } from './js/func_aux.js';
 
-fetch("http://10.5.225.112:3000");
+fetch("http://192.168.40.23:3000");
 
 
 // ============================================
@@ -90,10 +90,11 @@ function configurarEventos() {
 
             }
         );
+    }
 
     /*
         Limpiar tareas
-    */
+    
     document
         .getElementById(
             'botonLimpiarTareas'
@@ -116,7 +117,7 @@ function configurarEventos() {
             }
         );
 
-}
+}*/
 
 
 // ============================================

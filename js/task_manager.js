@@ -119,9 +119,9 @@ export function mostrarDatosUsuario(usuario) {
         'seccionFormularioTareas'
     ).classList.remove('hidden');
 
-    document.getElementById(
+    /*document.getElementById(
         'botonLimpiarTareas'
-    ).classList.remove('hidden');
+    ).classList.remove('hidden');*/
 
     /*
         Cargar tareas disponibles
@@ -565,18 +565,18 @@ export async function registrarTarea(datosTarea) {
 // ELIMINAR TAREA
 // ============================================
 
-/**
+/*
  * Eliminar tarea
  * 
- * @param {number} idTarea
- */
+ * @param {number} idTarea*/
+ /*
 async function eliminarTarea(idTarea) {
 
     try {
 
         /*
             Petición eliminar
-        */
+        
         await fetch(
             `${API_URL}/tareasAsignadas/${idTarea}`,
             {
@@ -586,7 +586,7 @@ async function eliminarTarea(idTarea) {
 
         /*
             Recargar tareas
-        */
+        
         cargarTareasUsuario(
             usuarioActual.id
         );
@@ -597,6 +597,52 @@ async function eliminarTarea(idTarea) {
             'Error:',
             error
         );
+
+    }
+
+}*/ 
+// ============================================
+// ELIMINAR TAREA
+// ============================================
+
+/**
+ * Eliminar tarea
+ * * @param {number} idTarea
+ */
+async function eliminarTarea(idTarea) {
+
+    try {
+
+        const deAcuerdo = confirm("¿Estás seguro de que deseas eliminar esta asignación de tarea?");
+
+        if (!deAcuerdo) {
+            return;
+        }
+
+        const respuesta = await fetch(
+            `${API_URL}/tareasAsignadas/${idTarea}`,
+            {
+                method: 'DELETE'
+            }
+        );
+
+        if (respuesta.ok) {
+            alert("¡Asignación eliminada con éxito!");
+        } else {
+            alert("No se pudo eliminar la asignación en el servidor.");
+        }
+
+        cargarTareasUsuario(
+            usuarioActual.id
+        );
+
+    } catch (error) {
+
+        console.error(
+            'Error:',
+            error
+        );
+        alert("Ocurrió un error de red al intentar eliminar.");
 
     }
 
