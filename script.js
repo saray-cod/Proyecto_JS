@@ -361,7 +361,7 @@ function configurarDropdown() {
         e.stopPropagation();
     });
 }
-// BOTON AGREGAR TAREA
+// BOTON AGREGAR TAREAS
 const boton = document.getElementById('botonAgregarTarea');
 boton.addEventListener('click', async () => {
     const titulo = prompt('Ingrese el título de la nueva tarea: ');
